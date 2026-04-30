@@ -7,6 +7,13 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    message: "Users API v2 online",
+    health: "/health"
+  });
+});
+
 app.get("/health", (_req, res) => {
   res.status(200).json({
     status: "ok",
