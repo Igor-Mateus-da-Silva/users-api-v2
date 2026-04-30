@@ -10,7 +10,8 @@ app.use(express.json());
 app.get("/health", (_req, res) => {
   res.status(200).json({
     status: "ok",
-    service: "users-api-v2"
+    service: "users-api-v2",
+    uptime: process.uptime()
   });
 });
 

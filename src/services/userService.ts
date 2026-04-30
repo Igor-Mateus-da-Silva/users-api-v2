@@ -16,5 +16,16 @@ export const userService = {
 
   async listById(id: string): Promise<UserDocument | null> {
     return User.findById(id).exec();
+  },
+
+  async update(id: string, data: Partial<IUser>): Promise<UserDocument | null> {
+    return User.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true
+    }).exec();
+  },
+
+  async delete(id: string): Promise<UserDocument | null> {
+    return User.findByIdAndDelete(id).exec();
   }
 };
