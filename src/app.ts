@@ -7,23 +7,19 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Users API v2 online",
-    status: "ok",
-    timestamp: new Date().toISOString()
-  });
-});
-
-app.get("/health", (_req, res) => {
-  res.status(200).json({
-    status: "ok",
-    service: "users-api-v2",
-    uptime: process.uptime()
-  });
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", service: "users-api-v2" });
 });
 
 app.use(userRoutes);
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "Users API v2 online",
+    status: "ok"
+  });
+});
+
 app.use(errorMiddleware);
 
 export { app };
