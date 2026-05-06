@@ -7,10 +7,11 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (_req, res) => {
-  res.status(200).json({
+app.get("/", (req, res) => {
+  res.json({
     message: "Users API v2 online",
-    health: "/health"
+    status: "ok",
+    timestamp: new Date().toISOString()
   });
 });
 

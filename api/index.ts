@@ -4,9 +4,15 @@ import { connectDatabase } from '../src/config/database.js';
 export default async function handler(req: any, res: any) {
   try {
     await connectDatabase();
-    return app(req, res);
-  } catch (error) {
-    console.error("Database connection error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    // O Express 5 na Vercel funciona melhor sem o return explícito do app(req, res)
+    app(req, res);
+  } catch (error: any) {
+    console.error("Vercel Handler Error:", error);
+    if (!res.headersSent) {
+      res.status(500).json({
+        error: "Internal Server Error",
+        message: error?.message || "Unknown error"
+      });
+    }
   }
 }
